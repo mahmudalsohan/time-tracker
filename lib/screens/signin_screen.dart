@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:time_tracker/widgets/signin_button.dart';
 import 'package:time_tracker/widgets/social_signin_button.dart';
@@ -70,7 +71,15 @@ class SignInScreen extends StatelessWidget {
               text: 'SignIn Anonymously',
               buttonColor: Colors.black,
               textColor: Colors.white,
-              onTap: () {},
+              onTap: () async {
+                try {
+                  final userCredentials =
+                      await FirebaseAuth.instance.signInAnonymously();
+                  print(userCredentials.user!.uid);
+                } catch (e) {
+                  print(e.toString());
+                }
+              },
             ),
           ],
         ),
